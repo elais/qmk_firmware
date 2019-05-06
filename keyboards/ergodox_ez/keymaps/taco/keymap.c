@@ -10,11 +10,7 @@
 
 enum {
   CT_SE = 0,
-  CT_QUOTE
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-[CT_QUOT] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_quote_finished, dance_quote_reset);
+  CT_QUOT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -114,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,     UC(0x2283), UC(0x2200), UC(0x221E), UC(0x2203), UC(0x2202), KC_TRNS,
                UC(0x2193), UC(0x2190), UC(0x2192), UC(0x2194), KC_TRNS,    KC_TRNS,
   KC_TRNS,     UC(0x2264), UC(0x2265), KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-                           KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+                                       KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
   KC_TRNS,     KC_TRNS,
   KC_TRNS,
   KC_TRNS, KC_TRNS,  KC_TRNS
@@ -138,4 +134,8 @@ void dance_quote_reset (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code (KC_RSFT);
     unregister_code (KC_QUOT);
   }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+[CT_QUOT] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_quote_finished, dance_quote_reset)
 };

@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+
 #include "debug.h"
 #include "action_layer.h"
 
@@ -27,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand
   KC_BSPC,         KC_6,    KC_7,    KC_8,     KC_9,     KC_0,     KC_BSLS,
   CTL_T(KC_SCLN),  KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_BSPC,
-                   KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  CT_QUOT,
+                   KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  TD(CT_QUOT),
   ALT_T(KC_INS),   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
                             MO(NAV), KC_NO,    KC_RALT,  KC_RGUI,  C(KC_ENT),
   KC_RALT,         KC_RCTRL,
@@ -97,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [TOP] = LAYOUT_ergodox(
         // left hand
   KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-  KC_TRNS,  UC(0x2227), UC(0x222A), UC(0x2229), UC(0x2282), UC(0x2283), KC_TRNS,
+  KC_TRNS,  UC(0x2227), UC(0x2228), UC(0x222A), UC(0x2229), UC(0x2282), KC_TRNS,
   KC_TRNS,  UC(0x22A5), UC(0x22A4), UC(0x22A2), UC(0x22A3), UC(0x2191),
   KC_TRNS,  UC(0x230A), UC(0x2308), UC(0x236F), UC(0x2243), UC(0x2261), KC_TRNS,
   KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
@@ -115,6 +116,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,
   KC_TRNS, KC_TRNS,  KC_TRNS
 ),
+};
+
+void matrix_init_user(void) {
+  set_unicode_input_mode(UC_OSX);
 };
 
 // Tap Dance Declarations

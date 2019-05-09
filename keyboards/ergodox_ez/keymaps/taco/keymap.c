@@ -4,10 +4,9 @@
 #include "action_layer.h"
 
 #define BASE   0   // default layer
-#define SYMB_R 1   // symbols (activated by right hand)
-#define SYMB_L 2   // symbols (activated by left hand)
-#define NAV    3   // navigation
-#define TOP    4   // space cadet
+#define SYMB   1   // symbols (activated by right hand)
+#define NAV    2   // navigation
+#define TOP    3   // space cadet
 
 enum {
   CT_SE = 0,
@@ -19,61 +18,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // left hand
   LT(NAV,KC_ESC),  KC_1,    KC_2,       KC_3,     KC_4,     KC_5,  KC_DELETE,
   KC_TAB,          KC_Q,    KC_W,       KC_E,     KC_R,     KC_T,  OSL(TOP),
-  LCTL(KC_DELETE), KC_A,    KC_S,       KC_D,     KC_F,     KC_G,
-  KC_LSFT,         KC_Z,    KC_X,       KC_C,     KC_V,     KC_B,  SGUI(KC_ESC),
+  LGUI(KC_DELETE), KC_A,    KC_S,       KC_D,     KC_F,     KC_G,
+  KC_LSPO,         KC_Z,    KC_X,       KC_C,     KC_V,     KC_B,  SGUI(KC_ESC),
   MOD_HYPR,        KC_LGUI, MOD_MEH,    KC_LALT,  KC_LCTRL,   
-                                         C(KC_LALT),        KC_LALT,
-                                                            MO(NAV),
-                             KC_BSPC,    LT(SYMB_L,KC_ESC), KC_LSFT,
+                                        C(KC_LALT),          RGB_M_K,
+                                                             MO(NAV),
+                             LT(SYMB,KC_SPC),    KC_DELETE, KC_LSFT,
   // right hand
   KC_BSPC,         KC_6,    KC_7,    KC_8,     KC_9,     KC_0,     KC_BSLS,
   CTL_T(KC_SCLN),  KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_BSPC,
                    KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  TD(CT_QUOT),
-  ALT_T(KC_INS),   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+  ALT_T(KC_INS),   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSPC,
                             MO(NAV), KC_NO,    KC_RALT,  KC_RGUI,  C(KC_ENT),
-  KC_RALT,         KC_RCTRL,
+  RGB_TOG,         KC_RCTRL,
   MO(NAV),
-  KC_RSFT,         LT(SYMB_R,KC_ENT),    KC_SPACE
+  KC_RSFT,         KC_ESC,    LT(SYMB,KC_ENT)
 ),
-[SYMB_L] = LAYOUT_ergodox(
+[SYMB] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-       KC_TRNS,  KC_GRV ,  KC_TILD,  KC_ASTR,  KC_AMPR,  KC_SLSH,  LSFT(KC_COMM),
-       KC_TRNS,  KC_UNDS,  KC_CIRC,  KC_PERC,  KC_DLR,   KC_LPRN,
-       KC_TRNS,  KC_EQL,   KC_HASH,  KC_AT,    KC_EXLM,  KC_LCBR,  KC_LBRC,
+       KC_TRNS,  KC_EXLM,  KC_AT,    KC_LCBR,  KC_RCBR,  KC_PIPE,  LSFT(KC_COMM),
+       KC_TRNS,  KC_HASH,  KC_DLR,   KC_LPRN,  KC_RPRN,  KC_GRV,
+       KC_TRNS,  KC_PERC,  KC_CIRC,  KC_LBRC,  KC_RBRC,  KC_TILD,  KC_LBRC,
  LSFT(KC_QUOT),  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                                         KC_TRNS,  KC_TRNS,
-                                                   KC_TRNS,
-                         LSFT(KC_SLSH),  KC_TRNS,  KC_TRNS,
+                                                         KC_TRNS,  KC_TRNS,
+                                                                   KC_TRNS,
+                                               KC_TRNS,  KC_TRNS,  KC_TRNS,
        // right hand
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-  LSFT(KC_DOT),  KC_BSLS,  KC_7,     KC_8,     KC_9,     KC_PIPE,  KC_TRNS,
-                 KC_RPRN,  KC_4,     KC_5,     KC_6,     KC_MINS,  KC_ENT,
-       KC_RBRC,  KC_RCBR,  KC_1,     KC_2,     KC_3,     KC_PLUS,  KC_ENT,
-                           KC_0,    KC_DOT,  KC_DOT,     KC_TRNS,  KC_TRNS,
+  LSFT(KC_DOT),  KC_UP,    KC_7,     KC_8,     KC_9,     KC_ASTR,  KC_TRNS,
+                 KC_DOWN,  KC_4,     KC_5,     KC_6,     KC_PLUS,  KC_ENT,
+       KC_RBRC,  KC_AMPR,  KC_1,     KC_2,     KC_3,     KC_EQUAL, KC_ENT,
+                           KC_0,     KC_DOT,   KC_DOT,   KC_BSLS,  KC_TRNS,
        KC_TRNS,  KC_TRNS,
        KC_TRNS,
-       KC_TRNS,  KC_SCLN,  KC_DOT
-),
-[SYMB_R] = LAYOUT_ergodox(  // same as above, but avoids clash between SYMB and ;/:
-       // left hand
-       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-       KC_TRNS,  KC_GRV ,  KC_TILD,  KC_ASTR,  KC_AMPR,  KC_SLSH,  LSFT(KC_COMM),
-       KC_TRNS,  KC_UNDS,  KC_CIRC,  KC_PERC,  KC_DLR,   KC_LPRN,
-       KC_TRNS,  KC_PIPE,  KC_HASH,  KC_AT,    KC_EXLM,  KC_LCBR,  KC_LBRC,
- LSFT(KC_QUOT),  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                                         KC_TRNS,  KC_TRNS,
-                                                   KC_TRNS,
-                         LSFT(KC_SLSH),  KC_COLN,  KC_TRNS,
-       // right hand
-       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-  LSFT(KC_DOT),  KC_BSLS,  KC_7,     KC_8,     KC_9,     KC_MINS,  KC_TRNS,
-                 KC_RPRN,  KC_4,     KC_5,     KC_6,     KC_PLUS,  KC_ENT,
-       KC_RBRC,  KC_RCBR,  KC_1,     KC_2,     KC_3,     KC_EQL,   KC_ENT,
-                           KC_0,   KC_DOT,     KC_DOT,   KC_TRNS,  KC_TRNS,
-       KC_TRNS,  KC_TRNS,
-       KC_TRNS,
-       KC_TRNS,  KC_TRNS,  KC_DOT
+       KC_TRNS,  KC_TRNS,  KC_TRNS
 ),
 [NAV] = LAYOUT_ergodox(
        // left hand

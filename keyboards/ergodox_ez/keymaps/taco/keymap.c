@@ -121,6 +121,11 @@ void matrix_scan_user(void){
       SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
     }
 
+    SEQ_ONE_KEY(KC_SCOLON) {
+      // When I press KC_LEAD and then KC_GRAVE, this launches iTerm;
+      SEND_STRING(SS_LCTRL(SS_TAP(X_GRAVE)));
+    }
+
     // Window Manipulation
     // Window Halves
     SEQ_TWO_KEYS(KC_W, KC_H) {

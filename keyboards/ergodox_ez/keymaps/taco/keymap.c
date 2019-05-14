@@ -13,6 +13,7 @@ enum {
   CT_QUOT
 };
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox( // layer 0 : default
   // left hand
@@ -23,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MOD_HYPR,          KC_LGUI, MOD_MEH,    KC_LALT,  KC_LCTRL,   
                                         C(KC_LALT),          RGB_M_K,
                                                              MO(NAV),
-                             S(KC_ESC),    KC_DELETE, KC_LSFT,
+                             KC_LEAD,    KC_DELETE, KC_LSFT,
   // right hand
   KC_BSPC,         KC_6,    KC_7,    KC_8,     KC_9,     KC_0,     KC_BSLS,
   CTL_T(KC_SCLN),  KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_BSPC,
@@ -32,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             MO(NAV), KC_NO,    KC_RALT,  KC_RGUI,  C(KC_ENT),
   RGB_TOG,         KC_RCTRL,
   MO(NAV),
-  KC_RSFT,         KC_ENT,    LT(SYMB,KC_SPC)
+  KC_RSFT,         S(KC_ESC),    LT(SYMB,KC_SPC)
 ),
 [SYMB] = LAYOUT_ergodox(
        // left hand
@@ -97,10 +98,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
+
 void matrix_init_user(void) {
   set_unicode_input_mode(UC_OSX);
 };
 
+// leader key config
+LEADER_EXTERNS();
+
+void matrix_scan_user(void){
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_ONE_KEY(KC_TAB) {
+      // When I press KC_LEAD and then KC_TAB, this sends CMD + TAB
+      SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+    }
+
+    SEQ_ONE_KEY(KC_LEAD) {
+      // When I press KC_LEAD and then KC_DELETE, this launches Alfred;
+      SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+    }
+
+    // Window Manipulation
+    // Window Halves
+    SEQ_TWO_KEYS(KC_W, KC_H) {
+      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_LEFT))));
+    }
+
+    SEQ_TWO_KEYS(KC_W, KC_J) {
+      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DOWN))));
+    }
+
+    SEQ_TWO_KEYS(KC_W, KC_K) {
+      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_UP))));
+    }
+
+    SEQ_TWO_KEYS(KC_W, KC_L) {
+      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_RIGHT))));
+    }
+
+    // Window Quarters
+    SEQ_TWO_KEYS(KC_W, KC_U) {
+      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_U))));
+    }
+
+    SEQ_TWO_KEYS(KC_W, KC_I) {
+      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_I))));
+    }
+
+    SEQ_TWO_KEYS(KC_W, KC_N) {
+      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_N))));
+    }
+
+    SEQ_TWO_KEYS(KC_W, KC_M) {
+      SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_M))));
+    }
+  }
+}
 // Tap Dance Declarations
 void dance_quote_finished(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {

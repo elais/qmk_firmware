@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(NAV,KC_ESC),    KC_1,    KC_2,       KC_3,     KC_4,     KC_5,  KC_DELETE,
   KC_TAB,            KC_Q,    KC_W,       KC_E,     KC_R,     KC_T,  OSL(TOP),
   GUI_T(KC_DELETE),  KC_A,    KC_S,       KC_D,     KC_F,     KC_G,
-  KC_LSPO,           KC_Z,    KC_X,       KC_C,     KC_V,     KC_B,  SGUI_T(KC_ESC),
+  KC_LSPO,           KC_Z,    KC_X,       KC_C,     KC_V,     KC_B,  KC_MEH,
   MOD_HYPR,          KC_LGUI, MOD_MEH,    KC_LALT,  KC_LCTRL,   
                                         C(KC_LALT),          RGB_M_K,
                                                              MO(NAV),
@@ -111,9 +111,9 @@ void matrix_scan_user(void){
     leading = false;
     leader_end();
 
-    SEQ_ONE_KEY(KC_TAB) {
-      // When I press KC_LEAD and then KC_TAB, this sends CMD + TAB
-      SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+    SEQ_ONE_KEY(KC_DELETE) {
+      // When I press KC_LEAD and then KC_TAB, this opens 1password
+      SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_BSLASH))));
     }
 
     SEQ_ONE_KEY(KC_LEAD) {

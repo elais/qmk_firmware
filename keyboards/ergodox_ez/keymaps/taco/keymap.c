@@ -20,37 +20,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(NAV,KC_ESC),    KC_1,    KC_2,       KC_3,     KC_4,     KC_5,  KC_DELETE,
   KC_TAB,            KC_Q,    KC_W,       KC_E,     KC_R,     KC_T,  OSL(TOP),
   GUI_T(KC_DELETE),  KC_A,    KC_S,       KC_D,     KC_F,     KC_G,
-  KC_LSPO,           KC_Z,    KC_X,       KC_C,     KC_V,     KC_B,  KC_MEH,
-  MOD_HYPR,          KC_LGUI, MOD_MEH,    KC_LALT,  KC_LCTRL,   
+  KC_LSFT,           KC_Z,    KC_X,       KC_C,     KC_V,     KC_B,  KC_MEH,
+  MOD_HYPR,          KC_LGUI, KC_LALT,    KC_LCTRL,  MO(NAV),   
                                         C(KC_LALT),          RGB_M_K,
                                                              MO(NAV),
-                             KC_LEAD,    MO(NAV), KC_LSFT,
+                                    S(KC_ESC), OSL(SYMB), KC_LSFT,
   // right hand
   KC_BSPC,         KC_6,    KC_7,    KC_8,     KC_9,     KC_0,     KC_BSLS,
   CTL_T(KC_SCLN),  KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_BSPC,
                    KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  KC_ENT,
-  ALT_T(KC_INS),   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSPC,
-                            MO(NAV), KC_NO,    KC_RALT,  KC_RGUI,  C(KC_ENT),
+  ALT_T(KC_INS),   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+                            KC_SPC, KC_NO,    KC_RALT,  KC_RGUI,  C(KC_ENT),
   RGB_TOG,         KC_RCTRL,
   MO(NAV),
-  KC_RSFT,         S(KC_ESC),    LT(SYMB,KC_SPC)
+  KC_RSFT,         KC_LEAD,    LT(SYMB,KC_SPC)
 ),
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-       KC_TRNS,  KC_EXLM,  KC_AT,    KC_LCBR,  KC_RCBR,  KC_PIPE,  LSFT(KC_COMM),
-       KC_TRNS,  KC_HASH,  KC_DLR,   KC_LPRN,  KC_RPRN,  KC_GRV,
-       KC_TRNS,  KC_PERC,  KC_CIRC,  KC_LBRC,  KC_RBRC,  KC_TILD,  KC_LBRC,
- LSFT(KC_QUOT),  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+       KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
+       KC_TRNS,  KC_EXLM,  KC_AT,   KC_LCBR, KC_RCBR,  KC_PIPE,  LSFT(KC_COMM),
+       KC_TRNS,  KC_HASH,  KC_DLR,  KC_LPRN, KC_RPRN,  KC_GRV, 
+       KC_TRNS,  KC_PERC,  KC_CIRC, KC_LBRC, KC_RBRC,  KC_TILD,  KC_LBRC,
+ LSFT(KC_QUOT),  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
                                                          KC_TRNS,  KC_TRNS,
                                                                    KC_TRNS,
                                                KC_TRNS,  KC_TRNS,  KC_TRNS,
        // right hand
-       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-  LSFT(KC_DOT),  S(KC_MINUS),    KC_7,     KC_8,     KC_9,     KC_PPLS,  KC_TRNS,
-                 KC_PEQL,  KC_4,     KC_5,     KC_6,     KC_MINUS, TD(CT_QUOT),
-       KC_RBRC,  KC_AMPR,  KC_1,     KC_2,     KC_3,     KC_PAST,  KC_PEQL,
-                           KC_0,     KC_DOT,   KC_BSLS,  KC_PSLS,  KC_TRNS,
+       KC_TRNS,  KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,
+       KC_PPLS,  KC_BSLS,  KC_7,     KC_8,     KC_9,     KC_PIPE,     KC_TRNS,
+                 KC_MINUS, KC_4,     KC_5,     KC_6,     TD(CT_QUOT), KC_TRNS,
+       KC_PEQL,  KC_PAST,  KC_1,     KC_2,     KC_3,     KC_PEQL,     KC_TRNS,
+                           KC_0,     KC_DOT,   KC_BSLS,     KC_QUES,     KC_TRNS,
        KC_TRNS,  KC_TRNS,
        KC_TRNS,
        KC_TRNS,  KC_TRNS,  KC_TRNS
@@ -121,11 +121,28 @@ void matrix_scan_user(void){
       SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
     }
 
+    SEQ_ONE_KEY(KC_TAB) {
+      // When I press KC_LEAD and then KC_DELETE, this switches to last app;
+      SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+    }
+
+    SEQ_ONE_KEY(KC_BSLASH) {
+      // When I press KC_LEAD and then KC_DELETE, this launches Alfred;
+      SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+    }
+
     SEQ_ONE_KEY(KC_SCOLON) {
       // When I press KC_LEAD and then KC_GRAVE, this launches iTerm;
       SEND_STRING(SS_LCTRL(SS_TAP(X_GRAVE)));
     }
 
+    // Goto
+    SEQ_ONE_KEY(KC_H) {
+      SEND_STRING(SS_LCTRL(SS_TAP(X_LEFT)));
+    }
+    SEQ_ONE_KEY(KC_L) {
+      SEND_STRING(SS_LCTRL(SS_TAP(X_RIGHT)));
+    }
     // Window Manipulation
     // Window Halves
     SEQ_TWO_KEYS(KC_W, KC_H) {
